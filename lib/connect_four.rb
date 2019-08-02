@@ -30,5 +30,16 @@ class ConnectFour
       end
     end
   end
-  
+
+    def game_over?
+      # check for horizontal win
+      board.each do |row|
+        4.times do |i|
+          if row[i,4] == Array.new(4,"X")  || row[i,4] == Array.new(4,"O")
+            return true
+          end
+        end
+      end
+    end
+
 end
