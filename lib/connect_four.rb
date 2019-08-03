@@ -40,6 +40,15 @@ class ConnectFour
           end
         end
       end
+
+      # check for vertical win
+      board.transpose.each do |col|
+        3.times do |i|
+          if col[i,4] == Array.new(4,"X")  || col[i,4] == Array.new(4,"O")
+            return true
+          end
+        end
+      end
     end
 
 end
