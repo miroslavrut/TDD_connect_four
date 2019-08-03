@@ -62,11 +62,19 @@ describe "ConnectFour" do
         4.times {|i| game.drop_token(player,i)}
         expect(game.game_over?).to be true
       end
+      it "declares a win if there are 4 same in a row" do
+        game.board[3] = [" "," ","X","X","X","X"," "]
+        expect(game.game_over?).to eql(true)
+      end
     end
 
     context "#vertical_win?" do
       it "declares a win if there are 4 same in col" do
         4.times { game.drop_token(player,0)}
+        expect(game.game_over?).to be true
+      end
+      it "declares a win if there are 4 same in col" do
+        4.times {|x| game.board[x+1][2] = "X"}
         expect(game.game_over?).to be true
       end
     end
@@ -78,6 +86,13 @@ describe "ConnectFour" do
       end
       it "declares a win if there are 4 same in descending diagonal" do
         4.times {|x| game.board[4-x][x] = "X"}
+        expect(game.game_over?).to be true
+      end
+      it "declares a win" do
+        game.board[4][0] = "X"
+        game.board[3][1] = "X"
+        game.board[2][2] = "X"
+        game.board[1][3] = "X"
         expect(game.game_over?).to be true
       end
     end
