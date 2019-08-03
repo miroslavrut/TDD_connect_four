@@ -57,26 +57,26 @@ describe "ConnectFour" do
   describe "#game_over?" do
     subject(:game) {ConnectFour.new}
     let(:player) {Player.new("Mik", "X")}
-    context "horizontal" do
-      it "declares game over if there are 4 tokens in a row horizontaly" do
+    context "#horizontal_win?" do
+      it "declares a win if there are 4 same in a row" do
         4.times {|i| game.drop_token(player,i)}
         expect(game.game_over?).to be true
       end
     end
 
-    context "vertical" do
-      it "declares game over if there are 4 tokens in a column" do
+    context "#vertical_win?" do
+      it "declares a win if there are 4 same in col" do
         4.times { game.drop_token(player,0)}
         expect(game.game_over?).to be true
       end
     end
 
-    context "diagonal" do 
-      it "declares game over if 4 same tokens in rising diagonal" do
+    context "#diagonal_win?" do 
+      it "declares a win if there are 4 same in rising diagonal" do
         4.times {|x| game.board[x][x] = "X"}
         expect(game.game_over?).to be true
       end
-      it "declares game over if 4 same tokens in descending diagonal" do
+      it "declares a win if there are 4 same in descending diagonal" do
         4.times {|x| game.board[4-x][x] = "X"}
         expect(game.game_over?).to be true
       end
