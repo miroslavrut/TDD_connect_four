@@ -70,6 +70,17 @@ describe "ConnectFour" do
         expect(game.game_over?).to be true
       end
     end
+
+    context "diagonal" do 
+      it "declares game over if 4 same tokens in rising diagonal" do
+        4.times {|x| game.board[x][x] = "X"}
+        expect(game.game_over?).to be true
+      end
+      it "declares game over if 4 same tokens in descending diagonal" do
+        4.times {|x| game.board[4-x][x] = "X"}
+        expect(game.game_over?).to be true
+      end
+    end
   end
 
 end

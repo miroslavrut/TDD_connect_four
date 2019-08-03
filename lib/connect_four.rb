@@ -31,24 +31,44 @@ class ConnectFour
     end
   end
 
-    def game_over?
-      # check for horizontal win
-      board.each do |row|
-        4.times do |i|
-          if row[i,4] == Array.new(4,"X")  || row[i,4] == Array.new(4,"O")
-            return true
-          end
-        end
-      end
-
-      # check for vertical win
-      board.transpose.each do |col|
-        3.times do |i|
-          if col[i,4] == Array.new(4,"X")  || col[i,4] == Array.new(4,"O")
-            return true
-          end
+  def game_over?
+    # check for horizontal win
+    board.each do |row|
+      4.times do |i|
+        if row[i,4] == Array.new(4,"X")  || row[i,4] == Array.new(4,"O")
+          return true
         end
       end
     end
+
+    # check for vertical win
+    board.transpose.each do |col|
+      3.times do |i|
+        if col[i,4] == Array.new(4,"X")  || col[i,4] == Array.new(4,"O")
+          return true
+        end
+      end
+    end
+
+    # check for diagonal win
+    board.each_with_index do |row, index|
+      7.times do |i|
+        temp = Array.new
+        4.times {|x| temp << board[index+x][i+x]}
+        if temp == Array.new(4,"X") || temp == Array.new(4,"O")
+          return true
+        end
+      end
+
+      7.times do |i|
+        temp = Array.new
+        4.times {|x| temp << board[index+x][i-x]}
+        if temp == Array.new(4,"X") || temp == Array.new(4,"O")
+          return true
+        end
+      end
+    end
+
+  end
 
 end
