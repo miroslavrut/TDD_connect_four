@@ -17,20 +17,6 @@ class ConnectFour
     Array.new(6){ Array.new(7) {" "}}
   end
 
-  def drop_token(player, column)
-    if self.board[0][column] != " "
-      puts "invalid move"
-      return :ful
-    else
-      board.reverse.each do |ary|
-        if ary[column] == " "
-          ary[column] = player.token
-          break
-        end
-      end
-    end
-  end
-
   def game_over?
     horizontal_win? || vertical_win? || diagonal_win? || draw?
   end
@@ -93,30 +79,17 @@ class ConnectFour
     play_again
   end
 
-  def create_players
-    puts "Player 1 name: "
-    @player1 = Player.new(gets.chomp, "X")
-    puts "Player 2 name: "
-    @player2 = Player.new(gets.chomp, "O")
-    @current_player = @player1
-  end
-
   def play_turn
     draw_board
     puts "#{@current_player.name} turn!"
     puts "Where do you want to drop token? (1-7)"
-    input = (gets.chomp.to_i) - 1
+    input = (gets.chomp.to_i) - 1 
+    until valid_input?(input)
+      input = (gets.chomp.to_i) - 1 
+    end
     drop_token(@current_player, input)
     draw_board
     switch_players
-  end
-
-  def switch_players
-    if @current_player == @player1
-      @current_player = @player2
-    else
-      @current_player = @player1
-    end
   end
 
   def play_again(input = "")
@@ -127,6 +100,20 @@ class ConnectFour
       play
     else 
       return false
+    end
+  end
+
+  def drop_token(player, column)
+    if self.board[0][column] != " "
+      puts "invalid move"
+      return :ful
+    else
+      board.reverse.each do |ary|
+        if ary[column] == " "
+          ary[column] = player.token
+          break
+        end
+      end
     end
   end
 
@@ -148,6 +135,45 @@ class ConnectFour
     end
     puts border
     puts
+  end
+
+  def create_players
+    puts "Player 1 name: "
+    @player1 = Player.new(gets.chomp, "X")
+    puts "Player 2 name: "
+    @player2 = Player.new(gets.chomp, "O")
+    @current_player = @player1
+  end
+
+  def switch_players
+    if @current_player == @player1
+      @current_player = @player2
+    else
+      @current_player = @player1
+    end
+  end
+
+  def valid_input?(input)
+    if valid_range?(input) && !full_col(input)
+      return true
+    end
+    return false
+  end
+
+  def full_col(input)
+    if board.transpose[input][0] != " "
+      puts "Col #{input+1} is full, pick another"
+      return true
+    end
+    return false
+  end
+
+  def valid_range?(input)
+    if input.between?(0,8)
+      return true
+    end
+    puts "Please pick number from 1 to 9"
+    return false
   end
 
   def game_end_info
