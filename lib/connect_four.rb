@@ -11,6 +11,7 @@ class ConnectFour
 
   def initialize
     @board = generate_board
+    @turns = 42
   end
 
   def generate_board
@@ -81,7 +82,8 @@ class ConnectFour
   end
 
   def draw?
-    board.none? {|row| row.none? {|el| el == " "}}
+    return true if @turns == 0
+    return false
   end
 
   def play
@@ -106,6 +108,7 @@ class ConnectFour
     drop_token(@current_player, input)
     draw_board
     switch_players
+    @turns -= 1
   end
 
   def switch_players
@@ -147,4 +150,4 @@ class ConnectFour
   end
 end
 
-# ConnectFour.new.play
+ ConnectFour.new.play
