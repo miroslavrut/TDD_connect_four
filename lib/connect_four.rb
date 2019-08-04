@@ -8,7 +8,6 @@ end
 
 class ConnectFour
   attr_accessor :board
-
   def initialize
     @board = generate_board
     @turns = 42
@@ -82,6 +81,7 @@ class ConnectFour
   end
 
   def draw?
+    @turns -= 1
     return true if @turns == 0
     return false
   end
@@ -109,10 +109,7 @@ class ConnectFour
     drop_token(@current_player, input)
     draw_board
     switch_players
-    @turns -= 1
   end
-
-
 
   def switch_players
     if @current_player == @player1
@@ -136,6 +133,7 @@ class ConnectFour
   def reset
     puts `clear`
     @board = generate_board
+    @turns = 42
   end
 
   def draw_board
@@ -162,4 +160,4 @@ class ConnectFour
   end
 end
 
- ConnectFour.new.play
+ConnectFour.new.play
