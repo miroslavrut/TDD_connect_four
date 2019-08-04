@@ -60,19 +60,21 @@ class ConnectFour
 
   def diagonal_win?
     board.each_with_index do |row, index|
-      7.times do |i|
-        temp = Array.new
-        4.times {|x| temp << board[index+x][i+x]}
-        if temp == Array.new(4,"X") || temp == Array.new(4,"O")
-          return true
+      if index <= 2
+        7.times do |i|
+          temp = Array.new
+          4.times {|x| temp << board[index+x][i+x]}
+          if temp == Array.new(4,"X") || temp == Array.new(4,"O")
+            return true
+          end
         end
-      end
 
-      7.times do |i|
-        temp = Array.new
-        4.times {|x| temp << board[index+x][i-x]}
-        if temp == Array.new(4,"X") || temp == Array.new(4,"O")
-          return true
+        7.times do |i|
+          temp = Array.new
+          4.times {|x| temp << board[index+x][i-x]}
+          if temp == Array.new(4,"X") || temp == Array.new(4,"O")
+            return true
+          end
         end
       end
     end
