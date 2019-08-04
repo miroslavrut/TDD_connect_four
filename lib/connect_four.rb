@@ -89,6 +89,7 @@ class ConnectFour
   def play
     create_players
     play_turn until game_over?
+    game_end_info
     play_again
   end
 
@@ -110,6 +111,8 @@ class ConnectFour
     switch_players
     @turns -= 1
   end
+
+
 
   def switch_players
     if @current_player == @player1
@@ -147,6 +150,15 @@ class ConnectFour
     end
     puts border
     puts
+  end
+
+  def game_end_info
+    puts "Draw game" if draw?
+    if @current_player.name == @player1.name
+      puts "Game over, #{@player2.name} won !!!"
+    else
+      puts "Game over, #{@player1.name} won !!!"
+    end
   end
 end
 
