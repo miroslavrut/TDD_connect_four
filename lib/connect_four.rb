@@ -52,7 +52,6 @@ class ConnectFour
         if col[i,4] == Array.new(4,"X")  || col[i,4] == Array.new(4,"O")
           return true
         end
-        
       end
     end
     false
@@ -81,4 +80,50 @@ class ConnectFour
     false
   end
 
+  def play
+    create_players
+    play_turn until game_over?
+  end
+
+  def create_players
+    puts "Player 1 name: "
+    @player1 = Player.new(gets.chomp, "X")
+    puts "Player 2 name: "
+    @player2 = Player.new(gets.chomp, "O")
+    @current_player = @player1
+  end
+
+  def play_turn
+    draw_board
+    puts "#{@current_player.name} turn!"
+    puts "Where do you want to drop token? (1-7)"
+    input = (gets.chomp.to_i) - 1
+    drop_token(@current_player, input)
+    draw_board
+    switch_players
+  end
+
+  def switch_players
+    if @current_player == @player1
+      @current_player = @player2
+    else
+      @current_player = @player1
+    end
+  end
+
+  def draw_board
+    puts `clear`
+    border = "+---+---+---+---+---+---+---+"
+    puts "+-1-+-2-+-3-+-4-+-5-+-6-+-7-+"
+    board.each do |ary|
+      puts border
+      ary.each {|x| print "| #{x} "}
+      print "|"
+      puts
+    end
+    puts border
+    puts
+  end
 end
+
+# ConnectFour.new.play
