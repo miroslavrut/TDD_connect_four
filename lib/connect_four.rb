@@ -32,7 +32,7 @@ class ConnectFour
   end
 
   def game_over?
-    horizontal_win? || vertical_win? || diagonal_win?
+    horizontal_win? || vertical_win? || diagonal_win? || draw?
   end
 
   def horizontal_win?
@@ -78,6 +78,10 @@ class ConnectFour
       end
     end
     false
+  end
+
+  def draw?
+    board.none? {|row| row.none? {|el| el == " "}}
   end
 
   def play
@@ -143,4 +147,4 @@ class ConnectFour
   end
 end
 
-ConnectFour.new.play
+# ConnectFour.new.play
