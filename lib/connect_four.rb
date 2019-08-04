@@ -83,6 +83,7 @@ class ConnectFour
   def play
     create_players
     play_turn until game_over?
+    play_again
   end
 
   def create_players
@@ -111,6 +112,22 @@ class ConnectFour
     end
   end
 
+  def play_again(input = "")
+    puts "\nPlay again? (y/n)"
+    input = gets.chomp.downcase until input.match?(/[yn]/)
+    if input == "y"
+      reset
+      play
+    else 
+      return false
+    end
+  end
+
+  def reset
+    puts `clear`
+    @board = generate_board
+  end
+
   def draw_board
     puts `clear`
     border = "+---+---+---+---+---+---+---+"
@@ -126,4 +143,4 @@ class ConnectFour
   end
 end
 
-# ConnectFour.new.play
+ConnectFour.new.play
